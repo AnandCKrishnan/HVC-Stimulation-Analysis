@@ -27,7 +27,11 @@ Workflow:
 Requirements:
 - read_Intan_RHD2000_file_M function
 
-Usage:
+Output:
+- Intan generated WAV files saved in:<br>
+  [IntanRHDFiles]/WavFiles/
+  
+Usage:<br>
   GenerateWavFilesForIntanAnalogChannels()
 
 
@@ -35,6 +39,43 @@ Usage:
 <br>
 
 ### 2. GenerateIntanAlignedWavFiles
+
+**Description:**
+This script performs temporal alignment between PyCBS and Intan
+recordings based on syllable onset information extracted from both
+systems. It computes the timing offset between the first labelled
+vocalisation in each dataset and uses this to align PyCBS audio to
+the Intan recording timeline.
+
+The aligned PyCBS audio is then streamed and adjusted in segments to
+match the duration of Intan recordings, and finally saved as new WAV
+files in an output directory.
+
+
+Workflow:
+1. User selects:
+   - Intan note file directory
+   - PyCBS note file directory
+2. Loads syllable onset times from both systems
+3. Computes timing offset between PyCBS and Intan
+4. Applies temporal correction (lag/lead adjustment)
+5. Streams and aligns WAV data segment-by-segment
+6. Writes aligned PyCBS audio into Intan timeline
+
+Requirements:
+- GetData function (for loading WAV files)
+- .mat files containing 'onsets'
+
+Output:
+- Aligned WAV files saved in:<br>
+  [PyCBSFiles]/IntanAlignedPyCBSFiles/
+
+Usage:<br>
+  GenerateIntanAlignedWavFiles()
+  
+Notes:
+- Alignment assumes consistent ordering of files
+- Sampling frequency is fixed at 30000 Hz for output
 
 ---
 <br>
@@ -61,7 +102,11 @@ Requirements:
 - PlotSpectrogram function
 - read_Intan_RHD2000_file_M function
 
-Usage:
+Output:<br>
+- Spectrogram overlaid with stimulus saved in:<br>
+  [WavFileDirectory]/OverlayedPlots/
+
+Usage:<br>
   PlotStimulusOnSpectrogram()
 
 ---
