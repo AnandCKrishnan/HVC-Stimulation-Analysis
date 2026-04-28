@@ -39,6 +39,7 @@ Usage:<br>
 <br>
 
 ### 2. GenerateIntanAlignedWavFiles
+Convert and downsample PyCBS .wav files to Intan time frame.
 
 **Description:**
 This script performs temporal alignment between PyCBS and Intan
@@ -108,6 +109,45 @@ Output:<br>
 
 Usage:<br>
   PlotStimulusOnSpectrogram()
+
+---
+<br>
+
+
+### 4. PlotAllEvokedVocalizationSpectrograms
+Plot all stimulus aligned spectrograms one below the other.
+
+
+**Description:**
+This script extracts digital input signals from Intan (.rhd) files,
+detects stimulus bursts, and aligns them with corresponding audio
+recordings (.wav). It then plots spectrograms of evoked vocalizations
+around each detected burst.
+
+Workflow:
+1. User selects:
+   - Directory containing Intan (.rhd) files
+   - Directory containing aligned .wav files
+2. Intan files are read and concatenated:
+   - Extract time and digital input signals
+3. Digital input is cleaned and processed:
+   - Remove short noise spikes
+   - Detect pulse onsets
+   - Group pulses into bursts
+4. Corresponding .wav files are loaded and concatenated
+5. For each detected burst:
+   - Extract audio segment around burst
+   - Compute spectrogram
+   - Plot aligned spectrograms across trials
+6. Final figure formatting and visualization
+
+Requirements:
+- read_Intan_RHD2000_file_M function
+- scale_spect function
+- disp_idx_spect function
+
+Usage:
+  PlotAllEvokedVocalizationSpectrograms()
 
 ---
 <br>
