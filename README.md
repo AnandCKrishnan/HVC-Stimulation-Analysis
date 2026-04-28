@@ -114,9 +114,8 @@ Usage:<br>
 <br>
 
 
-### 4. PlotAllEvokedVocalizationSpectrograms
+### 4. PlotEvokedVocalizationAllSpectrograms
 Plot all stimulus aligned spectrograms one below the other.
-
 
 **Description:**
 This script extracts digital input signals from Intan (.rhd) files,
@@ -124,8 +123,15 @@ detects stimulus bursts, and aligns them with corresponding audio
 recordings (.wav). It then plots spectrograms of evoked vocalizations
 around each detected burst.
 
+User-defined experiment parameters (bird name, current, frequency, duration)
+and data directories are obtained via a GUI interface.
+
 Workflow:
-1. User selects:
+1. User inputs experiment details via GUI:
+   - Bird name
+   - Stimulation current (µA)
+   - Frequency (Hz)
+   - Pulse duration (ms)
    - Directory containing Intan (.rhd) files
    - Directory containing aligned .wav files
 2. Intan files are read and concatenated:
@@ -145,10 +151,70 @@ Requirements:
 - read_Intan_RHD2000_file_M function
 - scale_spect function
 - disp_idx_spect function
+- getExperimentInputs
 
 Usage:
-  PlotAllEvokedVocalizationSpectrograms()
+  PlotEvokedVocalizationAllSpectrograms()
 
+---
+<br>
+
+
+### 5. PlotEvokedVocalizationAvgSpectrograms
+Plot avg stimulus aligned spectrogram with avg amplitude profile and avg pressure signal (if available).
+
+
+**Description:**
+This function processes Intan (.rhd) and aligned audio (.wav) files to:
+- Detect stimulation bursts from digital input signals
+- Extract corresponding vocalization and respiration signals
+- Compute spectrograms of evoked vocalizations
+- Calculate and plot averaged spectrogram, amplitude envelope, 
+  and respiration (pressure) signals across trials
+
+User-defined experiment parameters (bird name, current, frequency, duration)
+and data directories are obtained via a GUI interface.
+
+
+Workflow:
+1. User inputs experiment details via GUI:
+   - Bird name
+   - Stimulation current (µA)
+   - Frequency (Hz)
+   - Pulse duration (ms)
+   - Directory containing Intan (.rhd) files
+   - Directory containing aligned .wav files
+2. Intan data is loaded and concatenated:
+   - Time, digital input, and pressure (ADC channel)
+3. Digital signal processing:
+   - Remove noise spikes
+   - Detect pulse onsets
+   - Group pulses into bursts
+4. Audio data is loaded and concatenated
+5. For each burst:
+   - Extract audio and pressure segments
+   - Compute spectrogram
+   - Extract amplitude envelope
+6. Across bursts:
+   - Compute mean and SEM for:
+       • Spectrogram
+       • Amplitude profile
+       • Pressure signal
+7. Plot:
+   - Average spectrogram
+   - Average amplitude profile (± SEM)
+   - Average pressure trace (± SEM)
+
+Requirements:
+- read_Intan_RHD2000_file_M function
+- scale_spect function
+- disp_idx_spect function
+- getExperimentInputs
+
+Usage:
+  PlotEvokedVocalizationAvgSpectrograms()
+
+  
 ---
 <br>
 
